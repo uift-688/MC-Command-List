@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: rgb(23, 23, 28);
+            color: whitesmoke;
+            overflow-x: hidden;
+        }
+
+        .Title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #Title_Hr {
+            position: absolute;
+            top: 28px;
+            width: 100%;
+        }
+
+        #Dialog {
+            position: absolute;
+            background-color: rgb(49, 49, 59);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 55%;
+            height: 70%;
+            border: 1px solid whitesmoke;
+            padding: 10px;
+            overflow-y: auto;
+            /* 縦方向のスクロールを有効化 */
+            overflow-x: hidden;
+            /* 横方向のスクロールを無効化*/
+            border-radius: 10px;
+        }
+
+        #Contents {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #Contents_Hr {
+            position: absolute;
+            width: calc(100vw / 1.9);
+            top: 13%;
+        }
+
+        #Contents_Dialog {
+            position: absolute;
+            top: 13%;
+            padding: 20px;
+        }
+
+        #Commands_Dialog {
+            position: absolute;
+            top: 90%;
+            padding: 5px;
+        }
+
+        .Big_Text {
+            font-size: 20px;
+        }
+
+        .Hr {
+            width: calc(100vw / 1.9);
+        }
+
+        .Command_Content {
+            padding: 20px;
+        }
+
+        .Arg {
+            color: rgb(45, 168, 255);
+        }
+
+        .Code_Dialog {
+            width: calc(100vw / 2.4);
+            height: 130px;
+            background-color: rgb(29, 29, 35);
+            border-radius: 10px;
+            border: 1px solid rgb(20, 20, 24);
+            color: rgb(255, 75, 111);
+            padding: 8px;
+            overflow: auto;
+        }
+    </style>
+    <script>
+        function scrollToCategory(categoryId) {
+            // 対象のカテゴリ要素を取得
+            const categoryElement = document.getElementById(categoryId);
+
+            // 指定カテゴリにスクロール
+            if (categoryElement) {
+                categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+            }
+        }
+        const scrollableDiv = document.getElementById('Command_Content1');
+        let hideScrollbarTimeout;
+
+        // スクロールを開始したときにスクロールバーを表示する
+        scrollableDiv.addEventListener('scroll', () => {
+            // スクロール中にクラスを追加
+            scrollableDiv.classList.add('scrolling');
+
+            // 前のタイマーがあればクリア
+            if (hideScrollbarTimeout) clearTimeout(hideScrollbarTimeout);
+
+            // スクロールが停止したら一定時間後にスクロールバーを非表示に
+            hideScrollbarTimeout = setTimeout(() => {
+                scrollableDiv.classList.remove('scrolling');
+            }, 1000); // スクロール停止後1秒で非表示
+        });
+    </script>
+</head>
+
+<body>
+    <div class="Title">Minecraft Command Lists</div>
+    <hr id="Title_Hr">
+    <div id="Dialog">
+        <p id="Contents">目次</p>
+        <hr id="Contents_Hr">
+        <div id="Contents_Dialog">
+            <a onclick="scrollToCategory('Default_Command')" href="#">・基本のコマンド</a><br>
+            <a onclick="scrollToCategory('MV')" href="#">・Multiverse-Core</a>
+        </div>
+        <div id="Commands_Dialog">
+            <div class="Big_Text" id="Default_Command">基本のコマンド</div>
+            <hr class="Hr">
+            <div class="Command_Content" id="Command_Content1">
+                TP: <div class="Code_Dialog">
+                    <pre><code>/tp <span class="Arg">&lt;Position: 'x y z'&gt;</span>
+/tp <span class="Arg">&lt;Selector: Any&gt;</span> <span class="Arg">&lt;Position: 'x y z'&gt;</span>
+/tp <span class="Arg">&lt;Selector: Any&gt;</span> <span class="Arg">&lt;Selector: Any&gt;</span>
+            </div>
+            </code></pre>
+                    Give: <div class="Code_Dialog">
+                        <pre><code>/give <span class="Arg">&lt;Selector: Selector&gt;</span> <span class="Arg">&lt;Item-ID: String&gt;</span> <span class="Arg">&lt;Item-Qty: Integer&gt;</span>
+</div>
+</code></pre>
+                        SetBlock: <div class="Code_Dialog">
+                            <pre><code>/setblock <span class="Arg">&lt;Position: 'x y z'&gt;</span> <span class="Arg">&lt;Block-ID: String&gt;</span> <span class="Arg">[Block-Value: Integer]</span> <span class="Arg">[Operation: replace | keep | destroy]</span>
+</code></pre>
+                        </div>
+                        Weather: <div class="Code_Dialog">
+                            <pre><code>/weather <span class="Arg">&lt;Weather-Type: clear | rain | thunder&gt;</span> <span class="Arg">[Time: Integer]</span>
+</code></pre>
+                        </div>
+                        Kill: <div class="Code_Dialog">
+                            <pre><code>/kill <span class="Arg">&lt;Selector: Selector&gt;</span>
+</code></pre>
+                        </div>
+                        Effect: <div class="Code_Dialog">
+                            <pre><code>/effect give <span class="Arg">&lt;Selector: Selector&gt;</span> <span class="Arg">&lt;Effect-ID: String&gt;</span> <span class="Arg">[Time: Integer | infinity]</span> <span class="Arg">[Strength: Integer]</span>
+/effect clear <span class="Arg">&lt;Selector: Selector&gt;</span> <span class="Arg">&lt;Effect-ID: String&gt;</span>
+</code></pre>
+                        </div>
+                        Say: <div class="Code_Dialog">
+                            <pre><code> /say <span class="Arg">[Say-Text: Any]</span>
+</code></pre></div>
+                        GameMode: <div class="Code_Dialog">
+    <pre><code> /gamemode <span class="Arg"><Mode: String></span> <span class="Arg">[Selector: Selector]</span>
+</code></pre>
+                        
+                    </div>
+                </div>
+            <div class="Big_Text" id="MV">Server: Multiverse-Core</div>
+            <hr class="Hr">
+            <div class="Command_Content" id="Command_Content1">
+                MvCreate: <div class="Code_Dialog">
+                    <pre><code> /mvcreate <span class="Arg">&lt;World-Name: String&gt;</span> <span class="Arg">&lt;World-Type: Normal | Nether | The_End&gt;</span> <span class="Arg">[-t]</span> <span class="Arg">[Terrain-Type: Normal | Flat]</span> <span class="Arg">[-s]</span> <span class="Arg">[Seed: Integer]</span>
+</code></pre>
+            </div>
+            </div>
+            現在はここまでしか作成されていません。しばらくお待ちください。
+        </div>
+    </div>
+    
+</body>
+</html>
